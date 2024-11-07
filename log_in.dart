@@ -130,11 +130,9 @@ class _LoginPageState extends State<LoginPage> {
                         final authBox = await Hive.openBox(userAuthBoxName);
                         authBox.put('loggedInUserId', userId);
 
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainScreen(isLoggedIn: true),
-                          ),
+                        Navigator.pushAndRemoveUntil(
+                          context,MaterialPageRoute(builder: (context) => MainScreen(isLoggedIn: true)),
+                              (Route<dynamic> route) => false, // Remove all previous routes
                         );
 
                         ScaffoldMessenger.of(context).showSnackBar(
